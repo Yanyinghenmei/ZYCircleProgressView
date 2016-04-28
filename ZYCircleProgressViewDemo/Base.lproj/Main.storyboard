@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fba-ov-T3h" customClass="ZYCircleProgressView">
+                                <rect key="frame" x="163" y="120" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Fyf-5f-rXG"/>
+                                    <constraint firstAttribute="height" constant="100" id="jub-l7-3G3"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-HN-vgn" customClass="ZYCircleProgressView">
+                                <rect key="frame" x="338" y="120" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="10M-va-dtV"/>
+                                    <constraint firstAttribute="height" constant="100" id="7q7-w8-pOl"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9U-TE-OX7" customClass="ZYCircleProgressView">
+                                <rect key="frame" x="163" y="270" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="SkT-sZ-0qP"/>
+                                    <constraint firstAttribute="height" constant="100" id="WtC-xy-4un"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCN-tD-Tfh" customClass="ZYCircleProgressView">
+                                <rect key="frame" x="338" y="270" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="DrS-AJ-4k9"/>
+                                    <constraint firstAttribute="width" constant="100" id="LxQ-e6-d6h"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dB1-UG-l3A">
+                                <rect key="frame" x="263" y="510" width="75" height="30"/>
+                                <color key="backgroundColor" red="0.87843137250000003" green="0.48627450979999998" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Rqh-A4-CD7"/>
+                                    <constraint firstAttribute="width" constant="75" id="ch6-FL-Uj8"/>
+                                </constraints>
+                                <state key="normal" title="refresh"/>
+                                <connections>
+                                    <action selector="refresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ATx-qg-2CT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dB1-UG-l3A" firstAttribute="leading" secondItem="fba-ov-T3h" secondAttribute="trailing" id="2dg-AB-q7D"/>
+                            <constraint firstItem="dB1-UG-l3A" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8tV-Jk-nYj"/>
+                            <constraint firstItem="p9U-TE-OX7" firstAttribute="centerX" secondItem="fba-ov-T3h" secondAttribute="centerX" id="CQM-tu-86X"/>
+                            <constraint firstItem="cCN-tD-Tfh" firstAttribute="top" secondItem="PCr-HN-vgn" secondAttribute="bottom" constant="50" id="Ck1-k5-1LM"/>
+                            <constraint firstItem="fba-ov-T3h" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="H4P-8j-XdW"/>
+                            <constraint firstItem="cCN-tD-Tfh" firstAttribute="centerX" secondItem="PCr-HN-vgn" secondAttribute="centerX" id="If5-7N-lNe"/>
+                            <constraint firstItem="p9U-TE-OX7" firstAttribute="top" secondItem="fba-ov-T3h" secondAttribute="bottom" constant="50" id="Nyk-1R-EN9"/>
+                            <constraint firstItem="p9U-TE-OX7" firstAttribute="top" secondItem="fba-ov-T3h" secondAttribute="bottom" constant="50" id="QXp-bv-3EI"/>
+                            <constraint firstItem="cCN-tD-Tfh" firstAttribute="leading" secondItem="p9U-TE-OX7" secondAttribute="trailing" constant="50" id="Rqh-7u-47m"/>
+                            <constraint firstItem="PCr-HN-vgn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="Wor-ic-e0B"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dB1-UG-l3A" secondAttribute="bottom" constant="60" id="anx-wB-d2p"/>
+                            <constraint firstItem="cCN-tD-Tfh" firstAttribute="top" secondItem="PCr-HN-vgn" secondAttribute="bottom" constant="50" id="b4U-Yb-raG"/>
+                            <constraint firstItem="p9U-TE-OX7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="dNU-GZ-Dh1"/>
+                            <constraint firstItem="fba-ov-T3h" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="gdA-Om-bdz"/>
+                            <constraint firstItem="PCr-HN-vgn" firstAttribute="leading" secondItem="dB1-UG-l3A" secondAttribute="trailing" id="uMl-qI-ndT"/>
+                            <constraint firstItem="PCr-HN-vgn" firstAttribute="leading" secondItem="fba-ov-T3h" secondAttribute="trailing" constant="50" id="xK3-Jy-IqX"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="H4P-8j-XdW"/>
+                                <exclude reference="QXp-bv-3EI"/>
+                                <exclude reference="dNU-GZ-Dh1"/>
+                                <exclude reference="xK3-Jy-IqX"/>
+                                <exclude reference="Ck1-k5-1LM"/>
+                                <exclude reference="Rqh-7u-47m"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="cir1" destination="fba-ov-T3h" id="mAY-AD-yfP"/>
+                        <outlet property="cir2" destination="PCr-HN-vgn" id="iUI-vf-yTS"/>
+                        <outlet property="cir3" destination="p9U-TE-OX7" id="pV6-iJ-eTh"/>
+                        <outlet property="cir4" destination="cCN-tD-Tfh" id="2dl-5X-RLI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="340" y="429"/>
+        </scene>
+    </scenes>
+</document>
