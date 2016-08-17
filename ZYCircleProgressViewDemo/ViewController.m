@@ -28,7 +28,9 @@
     _cir2.borderTintColor = [UIColor colorWithRed:243/255.00 green:126/255.00 blue:58/255.00 alpha:1];
     
     _cir1.borderWidth = 10;
+    _cir1.titleLabel.hidden = YES;
     _cir3.borderWidth = 10;
+    _cir3.lineCap = kCALineCapRound;
     
     [self refresh:nil];
 }

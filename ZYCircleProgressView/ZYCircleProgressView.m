@@ -94,6 +94,11 @@
     return _progressCircleLayer;
 }
 
+- (void)setLineCap:(NSString *)lineCap {
+    _lineCap = lineCap;
+    self.progressCircleLayer.lineCap = lineCap;
+}
+
 // 背景圆圈
 - (CAShapeLayer *)backCircleLayer {
     if (!_backCircleLayer) {

@@ -15,4 +15,9 @@
 @property (nonatomic, strong)UIColor *borderColor;          // 进度条背景颜色
 @property (nonatomic, assign)CGFloat borderWidth;           // 进度条宽度
 @property (nonatomic, assign)CGFloat progress;              // 进度 0-1
+
+/**
+ *  kCALineCapRound  首尾圆角
+ */
+@property (nonatomic, copy)NSString *lineCap;
 @end
