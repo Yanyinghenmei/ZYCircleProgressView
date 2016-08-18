@@ -63,6 +63,7 @@
     if (_lineCap) {
         self.centerView.layer.cornerRadius = (self.frame.size.width - 1.2* _borderWidth)/2;
         self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
+        self.centerView.hidden = NO;
     } else {
         _centerView.hidden = YES;
     }
@@ -83,6 +84,7 @@
     if (_lineCap) {
         self.centerView.layer.cornerRadius = (self.frame.size.width - 1.2* _borderWidth)/2;
         self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
+        self.centerView.hidden = NO;
     } else {
         _centerView.hidden = YES;
     }
