@@ -29,8 +29,9 @@
     
     _cir1.borderWidth = 10;
     _cir1.titleLabel.hidden = YES;
-    _cir3.borderWidth = 10;
+    
     _cir3.lineCap = kCALineCapRound;
+    _cir3.borderWidth = 15;
     
     [self refresh:nil];
 }

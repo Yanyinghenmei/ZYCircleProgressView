@@ -12,6 +12,8 @@
 @interface ZYCircleProgressView ()
 @property (nonatomic, strong)CAShapeLayer *progressCircleLayer;
 @property (nonatomic, strong)CAShapeLayer *backCircleLayer;
+@property (nonatomic, strong)CALayer *startPoint;
+@property (nonatomic, strong)CAShapeLayer *endPoint;
 @end
 
 @implementation ZYCircleProgressView
@@ -32,6 +34,18 @@
     _borderTintColor = HEXCOLORV(0x1dbaf1);
     _borderWidth = 3.0f;
     self.progress = 0;
+    self.backgroundColor = [UIColor clearColor];
+}
+
+- (UIView *)centerView {
+    if (!_centerView) {
+        _centerView = [[UIView alloc] initWithFrame:CGRectZero];
+        _centerView.backgroundColor = [UIColor whiteColor];
+        _centerView.center = CGPointMake(self.frame.size.width/2, self.frame.size.width/2);
+        _centerView.layer.masksToBounds = YES;
+        [self addSubview:_centerView];
+    }
+    return _centerView;
 }
 
 - (ZYPercentageLabel *)titleLabel {
@@ -43,16 +57,36 @@
 }
 
 - (void)setProgress:(CGFloat)progress {
+    CGFloat lastProgress = _progress;
     _progress = progress;
+    
+    if (_lineCap) {
+        self.centerView.layer.cornerRadius = (self.frame.size.width - 1.2* _borderWidth)/2;
+        self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
+    } else {
+        _centerView.hidden = YES;
+    }
+    
     self.titleLabel.text = [NSString stringWithFormat:@"%d", (int)(progress * 100)];
-    
     self.titleLabel.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    [self bringSubviewToFront:self.titleLabel];
     
-    [self animation];
+    self.centerView.layer.cornerRadius = (self.frame.size.width - _borderWidth) * 0.9 / 2;
+    self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
+    
+    [self animationWithLastProgress:lastProgress];
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
     _borderWidth = borderWidth;
+    
+    if (_lineCap) {
+        self.centerView.layer.cornerRadius = (self.frame.size.width - 1.2* _borderWidth)/2;
+        self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
+    } else {
+        _centerView.hidden = YES;
+    }
+    
     self.progressCircleLayer.lineWidth = borderWidth;
     self.backCircleLayer.lineWidth = borderWidth;
 }
@@ -67,12 +101,14 @@
     self.progressCircleLayer.strokeColor = borderTintColor.CGColor;
 }
 
-- (void)animation {
+- (void)animationWithLastProgress:(CGFloat)lastProgress {
+    NSTimeInterval duration = fabs(2.0 * (_progress - lastProgress));
+    
     // 创建Animation
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.fromValue = @(0.0);
-    animation.toValue = @(_progress);
-    animation.duration = 2.0*_progress;
+    animation.fromValue = @(lastProgress+0.000001);
+    animation.toValue = @(_progress+0.000001);
+    animation.duration = duration;
     self.progressCircleLayer.autoreverses = NO;
     
     animation.fillMode = kCAFillModeForwards;
@@ -80,6 +116,27 @@
     
     // 设置layer的animation
     [self.progressCircleLayer addAnimation:animation forKey:nil];
+    
+    if (_lineCap) {
+        
+        CGFloat startPointW = _borderWidth * 0.4f;
+        self.startPoint.cornerRadius = startPointW/2;
+        self.startPoint.bounds = CGRectMake(0, 0, startPointW, startPointW);
+        self.startPoint.position = CGPointMake(self.frame.size.width, self.frame.size.height/2);
+        
+        CABasicAnimation *endPointStrokeStartAni = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
+        endPointStrokeStartAni.fromValue = @(lastProgress-0.000001);
+        endPointStrokeStartAni.toValue = @(_progress-0.000001);
+
+        endPointStrokeStartAni.duration = duration;
+        self.progressCircleLayer.autoreverses = NO;
+
+        endPointStrokeStartAni.fillMode = kCAFillModeForwards;
+        endPointStrokeStartAni.removedOnCompletion = NO;
+
+        [self.endPoint addAnimation:animation forKey:nil];
+        [self.endPoint addAnimation:endPointStrokeStartAni forKey:nil];
+    }
 }
 
 - (CAShapeLayer *)progressCircleLayer {
@@ -97,6 +154,32 @@
 - (void)setLineCap:(NSString *)lineCap {
     _lineCap = lineCap;
     self.progressCircleLayer.lineCap = lineCap;
+}
+
+// 起始小点
+- (CALayer *)startPoint {
+    if (!_startPoint) {
+        
+        _startPoint = [CALayer layer];
+        _startPoint.backgroundColor = [UIColor whiteColor].CGColor;
+        _startPoint.masksToBounds = YES;
+        [_progressCircleLayer addSublayer:_startPoint];
+    }
+    
+    return _startPoint;
+}
+
+- (CAShapeLayer *)endPoint {
+    if (!_endPoint) {
+        
+        _endPoint = [self shapeLayerWithStrokeColor:[UIColor whiteColor]];
+        CATransform3D transfrom = CATransform3DIdentity;
+        _endPoint.transform = CATransform3DRotate(transfrom, -M_PI/2, 0, 0, 1);
+        _endPoint.lineCap = kCALineCapRound;
+        [_backCircleLayer addSublayer:_endPoint];
+    }
+    
+    return _endPoint;
 }
 
 // 背景圆圈

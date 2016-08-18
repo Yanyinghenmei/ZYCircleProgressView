@@ -225,7 +225,7 @@
 				TargetAttributes = {
 					659484EA1CD1BAF2001BEBED = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 945NEL7Q8C;
+						DevelopmentTeam = 88XM33BXWL;
 					};
 					659485031CD1BAF3001BEBED = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -521,6 +521,7 @@
 				6594851A1CD1BAF3001BEBED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6594851B1CD1BAF3001BEBED /* Build configuration list for PBXNativeTarget "ZYCircleProgressViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +530,7 @@
 				6594851D1CD1BAF3001BEBED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6594851E1CD1BAF3001BEBED /* Build configuration list for PBXNativeTarget "ZYCircleProgressViewDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -537,6 +539,7 @@
 				659485201CD1BAF3001BEBED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
