@@ -221,4 +221,9 @@
     return shapeLayer;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self setProgress:_progress];
+}
+
 @end
