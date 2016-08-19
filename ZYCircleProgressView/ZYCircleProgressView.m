@@ -121,7 +121,7 @@
     
     if (_lineCap) {
         
-        CGFloat startPointW = _borderWidth * 0.4f;
+        CGFloat startPointW = _borderWidth * 0.5f;
         self.startPoint.cornerRadius = startPointW/2;
         self.startPoint.bounds = CGRectMake(0, 0, startPointW, startPointW);
         self.startPoint.position = CGPointMake(self.frame.size.width, self.frame.size.height/2);
@@ -129,13 +129,13 @@
         CABasicAnimation *endPointStrokeStartAni = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
         endPointStrokeStartAni.fromValue = @(lastProgress-0.000001);
         endPointStrokeStartAni.toValue = @(_progress-0.000001);
-
+        
         endPointStrokeStartAni.duration = duration;
         self.progressCircleLayer.autoreverses = NO;
-
+        
         endPointStrokeStartAni.fillMode = kCAFillModeForwards;
         endPointStrokeStartAni.removedOnCompletion = NO;
-
+        
         [self.endPoint addAnimation:animation forKey:nil];
         [self.endPoint addAnimation:endPointStrokeStartAni forKey:nil];
     }
@@ -223,7 +223,10 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self setProgress:_progress];
+    if (!_progress) {
+        _progress = 0.0;
+        [self setProgress:_progress];
+    }
 }
 
 @end
