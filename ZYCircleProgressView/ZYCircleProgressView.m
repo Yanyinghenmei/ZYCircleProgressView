@@ -16,7 +16,9 @@
 @property (nonatomic, strong)CAShapeLayer *endPoint;
 @end
 
-@implementation ZYCircleProgressView
+@implementation ZYCircleProgressView {
+    CGRect shapFrame;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -30,7 +32,7 @@
 }
 
 - (void)setProperty {
-    _borderColor = HEXCOLORV(0xf1f1f1);
+    _borderColor = HEXCOLORV(0xcccccc);
     _borderTintColor = HEXCOLORV(0x1dbaf1);
     _borderWidth = 3.0f;
     self.progress = 0;
@@ -61,8 +63,8 @@
     _progress = progress;
     
     if (_lineCap) {
-        self.centerView.layer.cornerRadius = (self.frame.size.width - 1.2* _borderWidth)/2;
-        self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
+        self.centerView.layer.cornerRadius = (self.frame.size.width - _borderWidth) * 0.95/2;
+        self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.95, (self.frame.size.width - _borderWidth) * 0.95);
         self.centerView.hidden = NO;
     } else {
         _centerView.hidden = YES;
@@ -72,9 +74,6 @@
     self.titleLabel.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self bringSubviewToFront:self.titleLabel];
     
-    self.centerView.layer.cornerRadius = (self.frame.size.width - _borderWidth) * 0.9 / 2;
-    self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
-    
     [self animationWithLastProgress:lastProgress];
 }
 
@@ -83,7 +82,7 @@
     
     if (_lineCap) {
         self.centerView.layer.cornerRadius = (self.frame.size.width - 1.2* _borderWidth)/2;
-        self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.9, (self.frame.size.width - _borderWidth) * 0.9);
+        self.centerView.bounds = CGRectMake(0, 0, (self.frame.size.width - _borderWidth) * 0.95, (self.frame.size.width - _borderWidth) * 0.95);
         self.centerView.hidden = NO;
     } else {
         _centerView.hidden = YES;
@@ -124,7 +123,7 @@
         CGFloat startPointW = _borderWidth * 0.5f;
         self.startPoint.cornerRadius = startPointW/2;
         self.startPoint.bounds = CGRectMake(0, 0, startPointW, startPointW);
-        self.startPoint.position = CGPointMake(self.frame.size.width, self.frame.size.height/2);
+        self.startPoint.position = CGPointMake(self.frame.size.width/2, 0);
         
         CABasicAnimation *endPointStrokeStartAni = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
         endPointStrokeStartAni.fromValue = @(lastProgress-0.000001);
@@ -143,6 +142,27 @@
 
 - (CAShapeLayer *)progressCircleLayer {
     if (!_progressCircleLayer) {
+        
+        // 渐变色 如果是渐变的,progressCircleLayer需要添加到渐变的gradientLayer上
+        /*
+        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+        gradientLayer.bounds = CGRectMake(0, 0, 1.2 * self.frame.size.width, 1.2 * self.frame.size.width);
+        gradientLayer.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        gradientLayer.locations = @[@0, @1];
+        gradientLayer.startPoint = CGPointMake(0.2, 0.2);
+        gradientLayer.endPoint = CGPointMake(0.8, 0.8);
+        gradientLayer.colors = @[(__bridge id)HEXCOLORV(0x0093dd).CGColor, (__bridge id)HEXCOLORV(0x199480).CGColor];
+        [self.backCircleLayer insertSublayer:gradientLayer atIndex:0];
+        
+        _progressCircleLayer = [self shapeLayerWithStrokeColor:_borderTintColor];
+        _progressCircleLayer.position = CGPointMake(gradientLayer.bounds.size.width/2, gradientLayer.bounds.size.width/2);
+        CATransform3D transfrom = CATransform3DIdentity;
+        _progressCircleLayer.transform = CATransform3DRotate(transfrom, -M_PI/2, 0, 0, 1);
+        
+        //添加并显示
+        [gradientLayer addSublayer:_progressCircleLayer];
+        gradientLayer.mask = _progressCircleLayer;
+        */
         
         _progressCircleLayer = [self shapeLayerWithStrokeColor:_borderTintColor];
         CATransform3D transfrom = CATransform3DIdentity;
@@ -165,7 +185,7 @@
         _startPoint = [CALayer layer];
         _startPoint.backgroundColor = [UIColor whiteColor].CGColor;
         _startPoint.masksToBounds = YES;
-        [_progressCircleLayer addSublayer:_startPoint];
+        [_backCircleLayer addSublayer:_startPoint];
     }
     
     return _startPoint;
